@@ -72,6 +72,10 @@ $(document).ready(() ->
     )
 
     $("button#ndvi").click(() ->
+        #$('#h_exp').val() # <-- some viable NDVI expression...
+        #$('#s_exp').val(1)
+        #$('#v_exp').val(1)
+        #$('#modeSwitcher').val('infragrammar_mono').click()
         if webGlSupported
             glHandleOnClickNdvi()
         else
@@ -120,6 +124,13 @@ $(document).ready(() ->
             glHandleOnClickGrey()
         else
             jsHandleOnClickGrey()
+    )
+
+    $("button#colorify").click(() ->
+        if webGlSupported
+            glHandleOnClickColorify()
+        else
+            jsHandleOnClickColorify()
     )
 
     $("button#color").click(() ->

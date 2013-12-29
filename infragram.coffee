@@ -173,9 +173,13 @@ update = (img) ->
             update_colorbar(min, max)
         else if mode == "raw"
             result = new JsImage(img.data, img.width, img.height, 4);
-        else if mode == "nir"
-            [r,g,b] = get_channels(img)
-            result = colorify(r, (x) -> [x, x, x])
+        else if mode == "colorify" # for manually colorifying monochrome images (i.e. from infragrammar)
+            img = camera.ctx.getImageData(0,0,image.width,image.height) # use image from canvas directly
+            m = get_channels(img)[0] # any channel should do if it's monochrome; for failsafe we might average channels?
+            result = colorify(m, (x) -> colormap(x/255))
+            min = -1
+            max = 1
+            update_colorbar(min, max)
         else
             result = infragrammar(img)
         $('#download').show()
@@ -324,6 +328,10 @@ jsHandleOnSubmitInfraMono = () ->
 jsHandleOnClickGrey = () ->
     colormap = greyscale_colormap
     update(image)
+
+jsHandleOnClickColorify = () -> # this is for manually colorifying after generating an image
+    colormap = colormap1
+    set_mode("colorify")
 
 jsHandleOnClickColor = () ->
     colormap = colormap1

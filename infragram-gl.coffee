@@ -279,6 +279,10 @@ glHandleOnClickGrey = () ->
     mapContext.greyscale = true
     drawScene(mapContext)
 
+glHandleOnClickColorify = () -> # this is for manually colorifying after generating an image
+    # not ported yet
+    #colormap = colormap1
+    #set_mode("colorify")
 
 glHandleOnClickColor = () ->
     imgContext.greyscale = false
